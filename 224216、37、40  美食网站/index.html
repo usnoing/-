@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>美食首页</title>
+	<meta name="keywords" content="美食,菜谱,烹饪,家常菜谱大全" />
+	<meta name="description" content="这是一个介绍广东美食的网站" />
+	<link rel="stylesheet" href="/224216、37、40  美食网站/224216、37、40  美食网站/css/index.css" />
+	<link rel="" href="/224216、37、40  美食网站/224216、37、40  美食网站/Iconfont/sw.ico" type="image/x-icon">
+</head>
+
+<body>
+	<!-- 固定定位 -->
+		<header class="gudin">
+			<nav>
+				<ul>
+					<li><a href="#">了解我们</a>
+						<ul class="top_list" id="lins_ui">
+							<img src="/224216、37、40  美食网站/224216、37、40  美食网站/images/微信图片_20240410131243.png" alt=""
+								id="ipngs">
+						</ul>
+					</li>
+					<li><a href="#">发布</a>
+						<ul class="top_list">
+							<li><a href="#">发菜谱</a></li>
+							<li><a href="#">发笔记</a></li>
+						</ul>
+					</li>
+					<li><a href="#">登录</a>
+						<ul class="top_list">
+							<li><a href="#">密码登录</a></li>
+							<li><a href="#">微信登录</a></li>
+							<li><a href="#">qq登录</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</header>
+	<!--  -->
+	<div class="all" id='all'>
+		<div class="screen" id="screen">
+			<ul id="ul">
+				<li><img src="#" width="500" height="200" /></li>
+				<li><img src="#" width="500" height="200" /></li>
+				<li><img src="images/3.jpg" width="500" height="200" /></li>
+				<li><img src="images/4.jpg" width="500" height="200" /></li>
+				<li><img src="images/5.jpg" width="500" height="200" /></li>
+			</ul>
+			<ol>
+
+			</ol>
+			<div id="arr">
+				<span id="left">
+
+				</span>
+				<span id="right">
+
+				</span>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+		var box = document.getElementById("all");
+		var ul = box.children[0].children[0];
+		var ol = box.children[0].children[1];
+		var ulLiArr = ul.children;
+		var newLi = ulLiArr[0].cloneNode(true);
+		ul.appendChild(newLi);
+		for (var i = 0; i < ulLiArr.length - 1; i++) {
+			var newOlLi = document.createElement("li");
+			newOlLi.innerHTML = i + 1;
+			ol.appendChild(newOlLi);
+		}
+		var olLiArr = ol.children;
+		ol.children[0].className = "current";
+		for (var i = 0; i < olLiArr.length; i++) {
+			olLiArr[i].index = i;
+			olLiArr[i].onmouseover = function () {
+				for (var j = 0; j < olLiArr.length; j++) {
+					olLiArr[j].className = "";
+				}
+				olLiArr[this.index].className = "current";
+				animate(ul, -this.index * ul.children[0].offsetWidth);
+				key = square = this.index;
+			}
+		}
+		var timer = null;
+		var key = 0;
+		var square = 0;
+		timer = setInterval(autoPlay, 3000);
+
+
+		function autoPlay() {
+			key++;
+			square++;
+			if (key > olLiArr.length) {
+				key = 1;
+				ul.style.left = 0;
+			}
+			animate(ul, -key * ul.children[0].offsetWidth);
+
+
+			square = square > olLiArr.length - 1 ? 0 : square;
+			for (var j = 0; j < olLiArr.length; j++) {
+				olLiArr[j].className = "";
+			}
+			olLiArr[square].className = "current";
+		}
+		//鼠标移开开启定时器，鼠标放上去开启定时器。
+		box.onmouseover = function () {
+			clearInterval(timer);
+		}
+		box.onmouseout = function () {
+			timer = setInterval(autoPlay, 1000);
+		}
+		//左右切换的按钮。
+		var btnArr = box.children[0].children[2].children;
+		btnArr[0].onclick = function () {
+			key--;
+			square--;
+			if (key < 0) {
+				key = 4;
+				ul.style.left = -5 * ul.children[0].offsetWidth + "px";
+			}
+			animate(ul, -key * ul.children[0].offsetWidth);
+
+
+			square = square < 0 ? olLiArr.length - 1 : square;
+			for (var j = 0; j < olLiArr.length; j++) {
+				olLiArr[j].className = "";
+			}
+			olLiArr[square].className = "current";
+		}
+		btnArr[1].onclick = function () {
+			autoPlay();
+		}
+
+		// 基本封装
+		function animate(obj, target) {
+			clearInterval(obj.timer);
+			var speed = obj.offsetLeft < target ? 15 : -15;
+			obj.timer = setInterval(function () {
+				var result = target - obj.offsetLeft;
+				obj.style.left = obj.offsetLeft + speed + "px";
+				if (Math.abs(result) <= 15) {
+					obj.style.left = target + "px";
+					clearInterval(obj.timer);
+				}
+			}, 10);
+		}
+</script>
+
+</html>
