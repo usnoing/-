@@ -13,7 +13,7 @@
 
         header li {
             width: 130px;
-            float: right;
+
             line-height: 50px;
             background-color: black;
         }
@@ -26,6 +26,14 @@
 
         header a:hover {
             background-color: cadetblue;
+        }
+
+        header .b {
+            float: left;
+        }
+
+        header .a {
+            float: right;
         }
 
         header .top_list {
@@ -76,6 +84,7 @@
             left: 0;
             top: 0px;
             width: 3000px;
+            text-align: center;
         }
 
         .all ol {
@@ -124,7 +133,11 @@
             left: auto;
         }
 
-        .gudin {
-            position: sticky;
-            top: o;
+        .imgmax {
+            max-width: 70%;
+        }
+
+        .tub{
+            height: 20px;
+            width: 20px;
         }
